@@ -11,13 +11,15 @@ ENV APACHE_DOCROOT="public_html"
 USER gitpod
 ADD https://api.wordpress.org/secret-key/1.1/salt?rnd=152634 /dev/null
 #RUN git clone https://github.com/rhettbarber/gitpod-wordpress /workspace/gitpod-wordpress && \
-
 USER root
 
 
 
-RUN mkdir /workspace/gitpod-wordpress/new/ && \
-git clone https://github.com/rhettbarber/gitpod-wordpress /workspace/gitpod-wordpress/new/ 
+RUN ls -la >> 'bashinfo.txt' && \
+pwd >> 'bashinfo.txt' && \
+history >> 'bashinfo.txt'
+# mkdir /workspace/gitpod-wordpress/new/ && \
+# git clone https://github.com/rhettbarber/gitpod-wordpress /workspace/gitpod-wordpress/new/ 
 #mv /workspace/gitpod-wordpress/temp/.git gitpod-wordpress/.git && \
 #rm -rf /workspace/gitpod-wordpress/temp && \
 
