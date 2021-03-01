@@ -10,9 +10,9 @@ ENV APACHE_DOCROOT="public_html"
 ### Setups, Node, NPM ###
 USER gitpod
 ADD https://api.wordpress.org/secret-key/1.1/salt?rnd=152634 /dev/null
-RUN git clone https://github.com/rhettbarber/gitpod-wordpress $HOME/gitpod-wordpress && \
-    cat $HOME/gitpod-wordpress/conf/.bashrc.sh >> $HOME/.bashrc && \
-    . $HOME/.bashrc && \
+RUN git clone https://github.com/rhettbarber/gitpod-wordpress /workspace/gitpod-wordpress && \
+    cat /workspace/gitpod-wordpress/conf/.bashrc.sh >> /workspace/.bashrc && \
+    . /workspace/.bashrc && \
     bash -c ". .nvm/nvm.sh && nvm install --lts"
 
 #0## MailHog ###
@@ -27,8 +27,8 @@ RUN go get github.com/mailhog/MailHog && \
     ### Apache ###
     # apt-get -y install apache2 && \
     chown -R gitpod:gitpod /var/run/apache2 /var/lock/apache2 /var/log/apache2 && \
-    echo "include $HOME/gitpod-wordpress/conf/apache.conf" > /etc/apache2/apache2.conf && \
-    echo ". $HOME/gitpod-wordpress/conf/apache.env.sh" > /etc/apache2/envvars && \
+    echo "include /workspace/gitpod-wordpress/conf/apache.conf" > /etc/apache2/apache2.conf && \
+    echo ". /workspace/gitpod-wordpress/conf/apache.env.sh" > /etc/apache2/envvars && \
     ### PHP ###
     apt-get -qy purge php* && \
     add-apt-repository ppa:ondrej/php && \
@@ -59,9 +59,9 @@ RUN go get github.com/mailhog/MailHog && \
     a2enmod mpm_prefork && \
     a2enmod php${PHP_VERSION} && \
     ### WP-CLI ###
-    wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O $HOME/wp-cli.phar && \
-    chmod +x $HOME/wp-cli.phar && \
-    mv $HOME/wp-cli.phar /usr/local/bin/wp && \
+    wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O /workspace/wp-cli.phar && \
+    chmod +x /workspace/wp-cli.phar && \
+    mv /workspace/wp-cli.phar /usr/local/bin/wp && \
     chown gitpod:gitpod /usr/local/bin/wp
 
 USER gitpod
