@@ -11,6 +11,9 @@ ENV APACHE_DOCROOT="public_html"
 USER gitpod
 ADD https://api.wordpress.org/secret-key/1.1/salt?rnd=152634 /dev/null
 #RUN git clone https://github.com/rhettbarber/gitpod-wordpress /workspace/gitpod-wordpress && \
+
+USER root
+
 RUN git clone https://github.com/rhettbarber/gitpod-wordpress /temp && \
 mv temp/.git gitpod-wordpress/.git && \
 rm -rf temp && \
@@ -22,7 +25,6 @@ bash -c "nvm install --lts"
 
 
 #0## MailHog ###
-USER root
 ARG DEBIAN_FRONTEND=noninteractive
 RUN go get github.com/mailhog/MailHog && \
     go get github.com/mailhog/mhsendmail && \
