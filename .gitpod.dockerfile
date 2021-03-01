@@ -14,9 +14,10 @@ ADD https://api.wordpress.org/secret-key/1.1/salt?rnd=152634 /dev/null
 
 USER root
 
-RUN git clone https://github.com/rhettbarber/gitpod-wordpress /workspace/gitpod-wordpress/temp && \
-mv /workspace/gitpod-wordpress/temp/.git gitpod-wordpress/.git && \
-rm -rf /workspace/gitpod-wordpress/temp && \
+RUN git clone https://github.com/rhettbarber/gitpod-wordpress . && \
+#mv /workspace/gitpod-wordpress/temp/.git gitpod-wordpress/.git && \
+#rm -rf /workspace/gitpod-wordpress/temp && \
+
 
 #    cat /workspace/gitpod-wordpress/conf/.bashrc.sh >> /workspace/.bashrc && \
 
