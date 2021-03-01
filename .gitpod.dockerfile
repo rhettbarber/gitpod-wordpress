@@ -16,8 +16,7 @@ USER root
 
 
 RUN ls -la >> 'bashinfo.txt' && \
-pwd >> 'bashinfo.txt' && \
-history >> 'bashinfo.txt'
+pwd >> 'bashinfo.txt' 
 # mkdir /workspace/gitpod-wordpress/new/ && \
 # git clone https://github.com/rhettbarber/gitpod-wordpress /workspace/gitpod-wordpress/new/ 
 #mv /workspace/gitpod-wordpress/temp/.git gitpod-wordpress/.git && \
