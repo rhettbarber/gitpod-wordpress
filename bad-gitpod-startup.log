@@ -1,0 +1,75 @@
+building base image
+
+initializing base image context
+UGit operations complete                       location=/workspace/init
+running base image build
+Step 1/11 : FROM gitpod/workspace-mysql
+latest: Pulling from gitpod/workspace-mysql
+Digest: sha256:95d54f9bbb94ee9d08827fd54e6995bd2d7163e98a5a21f6335f708e71e39ae6
+Status: Image is up to date for gitpod/workspace-mysql:latest
+ ---> 6ee8164ae8f6
+Step 2/11 : ENV PHP_VERSION="7.4"
+ ---> Using cache
+ ---> 6e8063f6ceee
+Step 3/11 : ENV APACHE_DOCROOT="public_html"
+ ---> Using cache
+ ---> f38d7e42daea
+Step 4/11 : USER gitpod
+ ---> Using cache
+ ---> 3e7c41c87dde
+Step 5/11 : ADD https://api.wordpress.org/secret-key/1.1/salt?rnd=152634 /dev/null
+
+ ---> abdb9b3da37c
+Step 6/11 : RUN git clone https://github.com/rhettbarber/gitpod-wordpress $HOME/gitpod-wordpress &&     cat $HOME/gitpod-wordpress/conf/.bashrc.sh >> $HOME/.bashrc &&     . $HOME/.bashrc &&     bash -c ". .nvm/nvm.sh && nvm install --lts"
+ ---> Running in cac829bedaa1
+Cloning into '/home/gitpod/gitpod-wordpress'...
+Installing latest LTS version.
+v14.16.0 is already installed.
+Now using node v14.16.0 (npm v7.5.6)
+ ---> 4c56bee4a517
+Step 7/11 : USER root
+ ---> Running in b5d3ab2a6e8e
+ ---> 4f0f09be12df
+Step 8/11 : ARG DEBIAN_FRONTEND=noninteractive
+ ---> Running in e257a54d209e
+ ---> b0a8107d43e9
+Step 9/11 : RUN go get github.com/mailhog/MailHog &&     go get github.com/mailhog/mhsendmail &&     cp $GOPATH/bin/MailHog /usr/local/bin/mailhog &&     cp $GOPATH/bin/mhsendmail /usr/local/bin/mhsendmail &&     ln $GOPATH/bin/mhsendmail /usr/sbin/sendmail &&     ln $GOPATH/bin/mhsendmail /usr/bin/mail &&    apt-get -y install apache2 &&     chown -R gitpod:gitpod /var/run/apache2 /var/lock/apache2 /var/log/apache2 &&     echo "include $HOME/gitpod-wordpress/conf/apache.conf" > /etc/apache2/apache2.conf &&     echo ". $HOME/gitpod-wordpress/conf/apache.env.sh" > /etc/apache2/envvars &&     apt-get -qy purge php* &&     add-apt-repository ppa:ondrej/php &&     apt-get update &&     apt-get -qy install         libapache2-mod-php         php${PHP_VERSION}         php${PHP_VERSION}-common         php${PHP_VERSION}-cli         php${PHP_VERSION}-mbstring         php${PHP_VERSION}-curl         php${PHP_VERSION}-gd  php${PHP_VERSION}-intl         php${PHP_VERSION}-mysql         php${PHP_VERSION}-xml         php${PHP_VERSION}-json         php${PHP_VERSION}-zip         php${PHP_VERSION}-soap         php${PHP_VERSION}-bcmath         php${PHP_VERSION}-opcache         php-xdebug &&     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* &&     update-alternatives --set php /usr/bin/php${PHP_VERSION} &&     cat /home/gitpod/gitpod-wordpress/conf/php.ini >> /etc/php/${PHP_VERSION}/apache2/php.ini &&     a2dismod php* &&     a2dismod mpm_* &&     a2enmod mpm_prefork &&     a2enmod php${PHP_VERSION} &&     wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O $HOME/wp-cli.phar &&     chmod +x $HOME/wp-cli.phar &&     mv $HOME/wp-cli.phar /usr/local/bin/wp &&     chown gitpod:gitpod /usr/local/bin/wp
+ ---> Running in b610a1961708
+go: downloading github.com/mailhog/MailHog v1.0.1
+go: downloading github.com/mailhog/mhsendmail v0.2.0
+go: downloading github.com/mailhog/http v1.0.1
+go: downloading github.com/ian-kent/envconf v0.0.0-20141026121121-c19809918c02
+go: downloading github.com/mailhog/MailHog-Server v1.0.1
+go: downloading github.com/mailhog/MailHog-UI v1.0.1
+go: downloading github.com/ian-kent/go-log v0.0.0-20160113211217-5731446c36ab
+go: downloading github.com/gorilla/pat v1.0.1
+go: downloading golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83
+go: downloading github.com/t-k/fluent-logger-golang v1.0.0
+go: downloading github.com/mailhog/smtp v1.0.1
+go: downloading github.com/ogier/pflag v0.0.1
+go: downloading github.com/mailhog/storage v1.0.1
+go: downloading github.com/gorilla/websocket v1.4.2
+go: downloading github.com/ian-kent/linkio v0.0.0-20170807205755-97566b872887
+go: downloading github.com/gorilla/websocket v1.4.2
+go: downloading github.com/ian-kent/goose v0.0.0-20141221090059-c3541ea826ad
+go: downloading github.com/ian-kent/linkio v0.0.0-20170807205755-97566b872887
+go: downloading github.com/mailhog/data v1.0.1
+go: downloading github.com/ian-kent/goose v0.0.0-20141221090059-c3541ea826ad
+go: downloading github.com/gorilla/mux v1.8.0
+go: downloading github.com/mailhog/data v1.0.1
+go: downloading github.com/gorilla/context v1.1.1
+go: downloading github.com/gorilla/mux v1.8.0
+go: downloading github.com/gorilla/context v1.1.1
+go: downloading github.com/tinylib/msgp v1.1.5
+go: downloading gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
+go: downloading github.com/philhofer/fwd v1.1.1
+Reading package lists...
+Building dependency tree...
+Reading state information...
+E: Unable to locate package apache2
+
+
+
+build failed: cannot build base image: The command '/bin/sh -c go get github.com/mailhog/MailHog &&     go get github.com/mailhog/mhsendmail &&     cp $GOPATH/bin/MailHog /usr/local/bin/mailhog &&     cp $GOPATH/bin/mhsendmail /usr/local/bin/mhsendmail &&     ln $GOPATH/bin/mhsendmail /usr/sbin/sendmail &&     ln $GOPATH/bin/mhsendmail /usr/bin/mail &&    apt-get -y install apache2 &&     chown -R gitpod:gitpod /var/run/apache2 /var/lock/apache2 /var/log/apache2 &&     echo "include $HOME/gitpod-wordpress/conf/apache.conf" > /etc/apache2/apache2.conf &&     echo ". $HOME/gitpod-wordpress/conf/apache.env.sh" > /etc/apache2/envvars &&     apt-get -qy purge php* &&     add-apt-repository ppa:ondrej/php &&     apt-get update &&     apt-get -qy install         libapache2-mod-php         php${PHP_VERSION}       php${PHP_VERSION}-common         php${PHP_VERSION}-cli         php${PHP_VERSION}-mbstring         php${PHP_VERSION}-curl         php${PHP_VERSION}-gd         php${PHP_VERSION}-intl         php${PHP_VERSION}-mysql         php${PHP_VERSION}-xml         php${PHP_VERSION}-json         php${PHP_VERSION}-zip         php${PHP_VERSION}-soap  php${PHP_VERSION}-bcmath         php${PHP_VERSION}-opcache         php-xdebug &&     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* &&     update-alternatives --set php /usr/bin/php${PHP_VERSION} &&     cat /home/gitpod/gitpod-wordpress/conf/php.ini >> /etc/php/${PHP_VERSION}/apache2/php.ini &&     a2dismod php* &&     a2dismod mpm_* &&  a2enmod mpm_prefork &&     a2enmod php${PHP_VERSION} &&     wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O $HOME/wp-cli.phar &&     chmod +x $HOME/wp-cli.phar &&     mv $HOME/wp-cli.phar /usr/local/bin/wp &&     chown gitpod:gitpod /usr/local/bin/wp' returned a non-zero code: 100
+
+Error: build failed: cannot build base image: The command '/bin/sh -c go get github.com/mailhog/MailHog &&     go get github.com/mailhog/mhsendmail &&     cp $GOPATH/bin/MailHog /usr/local/bin/mailhog &&     cp $GOPATH/bin/mhsendmail /usr/local/bin/mhsendmail &&     ln $GOPATH/bin/mhsendmail /usr/sbin/sendmail &&     ln $GOPATH/bin/mhsendmail /usr/bin/mail &&    apt-get -y install apache2 &&     chown -R gitpod:gitpod /var/run/apache2 /var/lock/apache2 /var/log/apache2 &&     echo "include $HOME/gitpod-wordpress/conf/apache.conf" > /etc/apache2/apache2.conf &&     echo ". $HOME/gitpod-wordpress/conf/apache.env.sh" > /etc/apache2/envvars &&     apt-get -qy purge php* &&     add-apt-repository ppa:ondrej/php &&     apt-get update &&     apt-get -qy install         libapache2-mod-php         php${PHP_VERSION}         php${PHP_VERSION}-common         php${PHP_VERSION}-cli         php${PHP_VERSION}-mbstring         php${PHP_VERSION}-curl         php${PHP_VERSION}-gd         php${PHP_VERSION}-intl         php${PHP_VERSION}-mysql   php${PHP_VERSION}-xml         php${PHP_VERSION}-json         php${PHP_VERSION}-zip         php${PHP_VERSION}-soap         php${PHP_VERSION}-bcmath         php${PHP_VERSION}-opcache         php-xdebug &&     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* &&     update-alternatives --set php /usr/bin/php${PHP_VERSION} &&     cat /home/gitpod/gitpod-wordpress/conf/php.ini >> /etc/php/${PHP_VERSION}/apache2/php.ini &&     a2dismod php* &&     a2dismod mpm_* &&     a2enmod mpm_prefork &&     a2enmod php${PHP_VERSION} &&     wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O $HOME/wp-cli.phar &&     chmod +x $HOME/wp-cli.phar &&     mv $HOME/wp-cli.phar /usr/local/bin/wp &&     chown gitpod:gitpod /usr/local/bin/wp' returned a non-zero code: 100

@@ -2,7 +2,7 @@
 
 [Gitpod](https://www.gitpod.io) is a ready-to-code dev environment with a single click. It will allows you to develop plugin or theme directly from your browser.
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/luizbills/gitpod-wordpress)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/rhettbarber/gitpod-wordpress)
 
 ## Features
 
@@ -38,7 +38,7 @@ Project dependencies (in `composer.json` or `package.json`) are automatically in
 
 Now you access `https://gitpod.io/#<url-of-your-github-project>`.
 
-> Example: [https://gitpod.io/#https://github.com/luizbills/wp-tweaks/](https://gitpod.io/#https://github.com/luizbills/wp-tweaks/)
+> Example: [https://gitpod.io/#https://github.com/rhettbarber/wp-tweaks/](https://gitpod.io/#https://github.com/rhettbarber/wp-tweaks/)
 
 Your admin credentials:
 
@@ -71,7 +71,7 @@ To contribute, follow these steps:
 
 Alternatively see the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
-Just found a bug? Report it on GitHub [Issues](https://github.com/luizbills/gitpod-wordpress/issues).
+Just found a bug? Report it on GitHub [Issues](https://github.com/rhettbarber/gitpod-wordpress/issues).
 
 ## LICENSE
 
