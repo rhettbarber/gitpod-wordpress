@@ -10,11 +10,16 @@ ENV APACHE_DOCROOT="public_html"
 ### Setups, Node, NPM ###
 USER gitpod
 ADD https://api.wordpress.org/secret-key/1.1/salt?rnd=152634 /dev/null
-RUN git clone https://github.com/rhettbarber/gitpod-wordpress /workspace/gitpod-wordpress && \
-    cat /workspace/gitpod-wordpress/conf/.bashrc.sh >> /workspace/.bashrc && \
-    . /workspace/.bashrc && \
+#RUN git clone https://github.com/rhettbarber/gitpod-wordpress /workspace/gitpod-wordpress && \
+RUN git clone https://github.com/rhettbarber/gitpod-wordpress /temp && \
+mv temp/.git gitpod-wordpress/.git && \
+rm -rf temp && \
+
+#    cat /workspace/gitpod-wordpress/conf/.bashrc.sh >> /workspace/.bashrc && \
+
 #   bash -c ". .nvm/nvm.sh && nvm install --lts"
-        bash -c "nvm install --lts"
+bash -c "nvm install --lts"
+
 
 #0## MailHog ###
 USER root
